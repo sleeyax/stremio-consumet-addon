@@ -1,0 +1,31 @@
+{
+  "name": "stremio-consumet-addon",
+  "version": "1.0.0",
+  "description": "Provides anime, movies, manga, books, comic books, etc.",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "start:dev": "nodemon src/server.ts"
+  },
+  "keywords": [
+    "stremio",
+    "stremio addon",
+    "consumet"
+  ],
+  "author": "Sleeyax",
+  "license": "MIT",
+  "dependencies": {
+    "@consumet/extensions": "^1.4.17",
+    "stremio-addon-sdk": "^1.6.10"
+  },
+  "devDependencies": {
+    "@tsconfig/node18": "^1.0.1",
+    "@types/node": "^18.15.11",
+    "@types/stremio-addon-sdk": "^1.6.5",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.3"
+  }
+}
