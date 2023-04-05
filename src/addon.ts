@@ -47,7 +47,7 @@ builder.defineMetaHandler(async ({ id, type }) => {
 
   const [, contentType, provider, consumetId] = id.split(':');
 
-  let meta: MetaDetail = {} as MetaDetail;
+  let meta: MetaDetail = null as unknown as MetaDetail;
 
   if (contentType === 'anime') {
     const info = await consumetApi.getInfo(
