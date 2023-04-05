@@ -23,8 +23,10 @@ export default class ConsumetApi {
     provider: Provider,
     path: string
   ): Promise<T | null> {
+    const url = `${this.url}/${type}/${provider}/${path}`;
+
     const res = await phin({
-      url: `${this.url}/${type}/${provider}/${path}`,
+      url,
       method: 'GET',
       timeout: 60_000,
       headers: {
@@ -35,6 +37,12 @@ export default class ConsumetApi {
     });
 
     if (res.statusCode !== 200) {
+      console.error('failed to fetch API results', {
+        url,
+        statusCode: res.statusCode,
+        body: res.body.toString(),
+      });
+
       return null;
     }
 
