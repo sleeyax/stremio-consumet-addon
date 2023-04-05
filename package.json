@@ -1,7 +1,7 @@
 {
   "name": "stremio-consumet-addon",
   "version": "1.0.0",
-  "description": "Provides anime, movies, manga, books, comic books, etc.",
+  "description": "Provides anime and asian movies from the Consumet API",
   "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

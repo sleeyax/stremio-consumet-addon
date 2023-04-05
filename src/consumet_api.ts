@@ -1,6 +1,6 @@
 import { IAnimeInfo, IAnimeResult, ISource } from '@consumet/extensions';
 import phin from 'phin';
-import packageJson from '../package.json';
+import { name, version } from '../package.json';
 import { IS_DEV } from './constants';
 
 export enum AnimeProvider {
@@ -12,8 +12,20 @@ export enum AnimeProvider {
   Zoro = 'zoro',
 }
 
-export type ContentType = 'anime';
-export type Provider = AnimeProvider;
+export enum MovieProvider {
+  Dramacool = 'dramacool',
+  FlixHQ = 'flixhq',
+  ViewAsian = 'viewasian',
+}
+
+export type ContentType = 'anime' | 'movies';
+export type Provider = AnimeProvider | MovieProvider;
+
+const oldApiProviders: Provider[] = [
+  AnimeProvider.AnimeFox,
+  AnimeProvider.Enime,
+  AnimeProvider.Zoro,
+];
 
 export default class ConsumetApi {
   private readonly url = 'https://api.consumet.org';
@@ -30,8 +42,8 @@ export default class ConsumetApi {
       method: 'GET',
       timeout: 60_000,
       headers: {
-        'User-Agent': `${packageJson.name} v${packageJson.version}${
-          IS_DEV ? '(development build)' : ''
+        'User-Agent': `${name} v${version}${
+          IS_DEV ? ' (development build)' : ''
         }`,
       },
     });
@@ -67,26 +79,20 @@ export default class ConsumetApi {
 
   async getInfo(type: ContentType, provider: Provider, id: string) {
     // I have no idea why this API is so inconsistent ¯\_(ツ)_/¯
-    const path = [
-      AnimeProvider.AnimeFox,
-      AnimeProvider.Enime,
-      AnimeProvider.Zoro,
-    ].includes(provider)
-      ? `info?id=${id}`
-      : `info/${id}`;
+    const path =
+      oldApiProviders.includes(provider) || type === 'movies'
+        ? `info?id=${id}`
+        : `info/${id}`;
 
     return this.send<IAnimeInfo>(type, provider, path);
   }
 
   async getEpisodeSources(type: ContentType, provider: Provider, id: string) {
     // I have no idea why this API and the docs are so inconsistent ¯\_(ツ)_/¯
-    const path = [
-      AnimeProvider.AnimeFox,
-      AnimeProvider.Enime,
-      AnimeProvider.Zoro,
-    ].includes(provider)
-      ? `watch?episodeId=${id}`
-      : `watch/${id}`;
+    const path =
+      oldApiProviders.includes(provider) || type === 'movies'
+        ? `watch?episodeId=${id}`
+        : `watch/${id}`;
 
     return this.send<ISource>(type, provider, path);
   }
