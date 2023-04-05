@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "start": "node dist/server.js",
-    "start:dev": "nodemon src/server.ts"
+    "start:dev": "cross-env NODE_ENV=dev nodemon src/server.ts"
   },
   "keywords": [
     "stremio",
@@ -18,12 +18,15 @@
   "license": "MIT",
   "dependencies": {
     "@consumet/extensions": "^1.4.17",
+    "phin": "^3.7.0",
     "stremio-addon-sdk": "^1.6.10"
   },
   "devDependencies": {
     "@tsconfig/node18": "^1.0.1",
     "@types/node": "^18.15.11",
+    "@types/phin": "^3.4.0",
     "@types/stremio-addon-sdk": "^1.6.5",
+    "cross-env": "^7.0.3",
     "nodemon": "^2.0.22",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.3"

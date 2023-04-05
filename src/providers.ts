@@ -1,5 +1,7 @@
 import { ANIME } from '@consumet/extensions';
 
+// TODO: use these providers from the lib as fallback when consumet API is down?
+
 export const animeProviders = [
   ...[
     ANIME.AnimeFox,
