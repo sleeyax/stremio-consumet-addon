@@ -81,7 +81,7 @@ builder.defineMetaHandler(async ({ id, type }) => {
         videos: info.episodes?.map((episode) => ({
           id: `${ADDON_ID}:${contentType}:${provider}:${episode.id}`,
           released: new Date(
-            episode.releaseDate || info.releaseDate || new Date()
+            episode.releaseDate || info.releaseDate || 1970
           ).toISOString(),
           title: episode.title?.toString() || `Episode ${episode.number}`,
           episode: episode.number,
