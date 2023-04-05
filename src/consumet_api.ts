@@ -79,10 +79,12 @@ export default class ConsumetApi {
   }
 
   async getEpisodeSources(type: ContentType, provider: Provider, id: string) {
-    // I have no idea why this API is so inconsistent ¯\_(ツ)_/¯
-    const path = [AnimeProvider.AnimeFox, AnimeProvider.Enime].includes(
-      provider
-    )
+    // I have no idea why this API and the docs are so inconsistent ¯\_(ツ)_/¯
+    const path = [
+      AnimeProvider.AnimeFox,
+      AnimeProvider.Enime,
+      AnimeProvider.Zoro,
+    ].includes(provider)
       ? `watch?episodeId=${id}`
       : `watch/${id}`;
 
