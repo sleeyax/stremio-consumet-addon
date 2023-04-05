@@ -66,10 +66,26 @@ export default class ConsumetApi {
   }
 
   async getInfo(type: ContentType, provider: Provider, id: string) {
-    return this.send<IAnimeInfo>(type, provider, `info/${id}`);
+    // I have no idea why this API is so inconsistent ¯\_(ツ)_/¯
+    const path = [
+      AnimeProvider.AnimeFox,
+      AnimeProvider.Enime,
+      AnimeProvider.Zoro,
+    ].includes(provider)
+      ? `info?id=${id}`
+      : `info/${id}`;
+
+    return this.send<IAnimeInfo>(type, provider, path);
   }
 
   async getEpisodeSources(type: ContentType, provider: Provider, id: string) {
-    return this.send<ISource>(type, provider, `watch/${id}`);
+    // I have no idea why this API is so inconsistent ¯\_(ツ)_/¯
+    const path = [AnimeProvider.AnimeFox, AnimeProvider.Enime].includes(
+      provider
+    )
+      ? `watch?episodeId=${id}`
+      : `watch/${id}`;
+
+    return this.send<ISource>(type, provider, path);
   }
 }
