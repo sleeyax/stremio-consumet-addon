@@ -1,6 +1,6 @@
 import { IAnimeInfo, IAnimeResult, ISource } from '@consumet/extensions';
 import phin from 'phin';
-import { name, version } from '../package.json';
+const { name, version } = require('../package.json');
 import { IS_DEV } from './constants';
 
 export enum AnimeProvider {

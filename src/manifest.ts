@@ -1,7 +1,7 @@
 import { ManifestCatalog, Manifest as manifest } from 'stremio-addon-sdk';
 import { ADDON_ID } from './constants';
 import { AnimeProvider, MovieProvider } from './consumet_api';
-import { version, description } from '../package.json';
+const { version, description } = require('../package.json');
 
 const manifest: manifest = {
   id: `com.sleeyax.${ADDON_ID}`,
