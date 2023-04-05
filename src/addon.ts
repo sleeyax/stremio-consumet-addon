@@ -106,7 +106,7 @@ builder.defineStreamHandler(async ({ id, type }) => {
     episodeId
   );
   streams = (source?.sources ?? []).map((s) => ({
-    name: `${s.quality} (${s.size || '? '} bytes)`,
+    name: `${s.quality}`,
     title: s.quality,
     subtitles: source?.subtitles as Subtitle[],
     url: s.url,
