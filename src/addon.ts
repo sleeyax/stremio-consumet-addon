@@ -105,6 +105,7 @@ builder.defineStreamHandler(async ({ id, type }) => {
     provider as AnimeProvider,
     episodeId
   );
+  console.log(source)
   streams = (source?.sources ?? []).map((s) => ({
     name: s.quality ?? 'Unknown',
     title: s.quality ?? 'Unknown',

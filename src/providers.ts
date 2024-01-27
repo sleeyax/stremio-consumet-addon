@@ -7,7 +7,6 @@ export const animeProviders = [
     ANIME.AnimeFox,
     ANIME.AnimePahe,
     // ANIME.Bilibili,
-    ANIME.Enime,
     // ANIME.Gogoanime,
     ANIME.Marin,
     // ANIME.NineAnime,
