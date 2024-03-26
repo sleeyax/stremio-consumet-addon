@@ -19,7 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "@consumet/extensions": "^1.5.4",
-    "phin": "^3.7.0",
+    "phin": "^4.0.0",
     "stremio-addon-sdk": "^1.6.10"
   },
   "devDependencies": {
