@@ -14,7 +14,7 @@ const addon = express();
 const port = process.env.PORT ?? 1337;
 
 addon.use(express.static('public'));
-addon.use(cors())
+addon.use(cors());
 
 addon.get('/', function (_, res) {
   res.redirect('/configure/');
@@ -33,11 +33,11 @@ addon.get('/configure/test/:api', async function (req, res) {
 });
 
 addon.get('/manifest.json', function (_, res) {
-  res.send(getManifest({configurationRequired: true}));
+  res.send(getManifest({ configurationRequired: true }));
 });
 
 addon.get('/:api/manifest.json', function (_, res) {
-  res.send(getManifest({configurationRequired: false}));
+  res.send(getManifest({ configurationRequired: false }));
 });
 
 addon.get('/:api/catalog/:type/:id/:extra.json', async function (req, res) {

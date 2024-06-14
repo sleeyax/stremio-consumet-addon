@@ -16,8 +16,11 @@ import {
 } from './consumet_api';
 import { manifest } from './manifest';
 
-export function getManifest(options: {configurationRequired: boolean}) {
-  return {...manifest, behaviorHints: { ...manifest.behaviorHints, ...options }};
+export function getManifest(options: { configurationRequired: boolean }) {
+  return {
+    ...manifest,
+    behaviorHints: { ...manifest.behaviorHints, ...options },
+  };
 }
 
 export async function catalogHandler({
