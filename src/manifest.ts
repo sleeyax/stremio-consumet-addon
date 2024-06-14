@@ -22,7 +22,7 @@ export const manifest: Manifest = {
               isRequired: true,
             },
           ],
-        } as ManifestCatalog)
+        }) as ManifestCatalog
     ),
     ...Object.values(MovieProvider).map(
       (provider) =>
@@ -36,7 +36,7 @@ export const manifest: Manifest = {
               isRequired: true,
             },
           ],
-        } as ManifestCatalog)
+        }) as ManifestCatalog
     ),
   ],
   resources: ['catalog', 'meta', 'stream'],

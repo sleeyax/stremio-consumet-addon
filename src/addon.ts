@@ -9,7 +9,11 @@ import type {
 } from 'stremio-addon-sdk';
 import { ADDON_ID, IS_DEV } from './constants';
 import { formatFuzzyDate } from './utils';
-import { ConsumetApi, AnimeProvider, ContentType as ConsumetContentType } from './consumet_api';
+import {
+  ConsumetApi,
+  AnimeProvider,
+  ContentType as ConsumetContentType,
+} from './consumet_api';
 import { manifest } from './manifest';
 
 const consumetApi = new ConsumetApi();
@@ -18,7 +22,10 @@ export function getManifest() {
   return manifest;
 }
 
-export async function catalogHandler({id, extra}: Args): Promise<{ metas: MetaPreview[] } & Cache> {
+export async function catalogHandler({
+  id,
+  extra,
+}: Args): Promise<{ metas: MetaPreview[] } & Cache> {
   if (IS_DEV) {
     console.log(id, extra);
   }
@@ -43,7 +50,13 @@ export async function catalogHandler({id, extra}: Args): Promise<{ metas: MetaPr
   return { metas };
 }
 
-export async function metaHandler({ id, type }: { type: ContentType; id: string }): Promise<{ meta: MetaDetail } & Cache> {
+export async function metaHandler({
+  id,
+  type,
+}: {
+  type: ContentType;
+  id: string;
+}): Promise<{ meta: MetaDetail } & Cache> {
   if (IS_DEV) {
     console.log(id, type);
   }
@@ -74,9 +87,7 @@ export async function metaHandler({ id, type }: { type: ContentType; id: string 
         : undefined,
       releaseInfo:
         info.startDate || info.endDate
-          ? `${info.startDate ? formatFuzzyDate(info.startDate) : ''} - ${
-              info.endDate ? formatFuzzyDate(info.endDate) : ''
-            }`
+          ? `${info.startDate ? formatFuzzyDate(info.startDate) : ''} - ${info.endDate ? formatFuzzyDate(info.endDate) : ''}`
           : undefined,
       website: info.url,
       runtime: info.status,
@@ -96,7 +107,13 @@ export async function metaHandler({ id, type }: { type: ContentType; id: string 
   return { meta };
 }
 
-export async function streamHandler({ id, type }: { type: ContentType; id: string }): Promise<{ streams: Stream[] } & Cache> {
+export async function streamHandler({
+  id,
+  type,
+}: {
+  type: ContentType;
+  id: string;
+}): Promise<{ streams: Stream[] } & Cache> {
   if (IS_DEV) {
     console.log(id, type);
   }

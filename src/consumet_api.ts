@@ -37,7 +37,10 @@ export class ConsumetApi {
     const url = `${this.url}/${type}/${provider}/${path}`;
 
     const headers = new Headers();
-    headers.set('User-Agent', `${name} v${version}${IS_DEV ? ' (development build)' : ''}`);
+    headers.set(
+      'User-Agent',
+      `${name} v${version}${IS_DEV ? ' (development build)' : ''}`
+    );
 
     const res = await fetch(url, {
       method: 'GET',
@@ -48,13 +51,13 @@ export class ConsumetApi {
       console.error('failed to fetch API results', {
         url,
         statusCode: res.status,
-        body: await res.text()
+        body: await res.text(),
       });
 
       return null;
     }
 
-    const json = await res.json() as T;
+    const json = (await res.json()) as T;
 
     return json;
   }
