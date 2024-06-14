@@ -8,11 +8,13 @@ import {
   streamHandler,
 } from './addon';
 import { testApiDomain as testApi } from './utils';
+import cors from 'cors';
 
 const addon = express();
 const port = process.env.PORT ?? 1337;
 
 addon.use(express.static('public'));
+addon.use(cors())
 
 addon.get('/', function (_, res) {
   res.redirect('/configure/');
