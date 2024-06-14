@@ -32,8 +32,12 @@ addon.get('/configure/test/:api', async function (req, res) {
   res.send({ ok: isReachable, time: Math.round(time) });
 });
 
+addon.get('/manifest.json', function (_, res) {
+  res.send(getManifest({configurationRequired: true}));
+});
+
 addon.get('/:api/manifest.json', function (_, res) {
-  res.send(getManifest());
+  res.send(getManifest({configurationRequired: false}));
 });
 
 addon.get('/:api/catalog/:type/:id/:extra.json', async function (req, res) {
