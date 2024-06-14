@@ -1,5 +1,4 @@
 import { IAnimeInfo, IAnimeResult, ISource } from '@consumet/extensions';
-import phin from 'phin';
 const { name, version } = require('../package.json');
 import { IS_DEV } from './constants';
 
@@ -37,28 +36,25 @@ export default class ConsumetApi {
   ): Promise<T | null> {
     const url = `${this.url}/${type}/${provider}/${path}`;
 
-    const res = await phin({
-      url,
+    const headers = new Headers();
+    headers.set('User-Agent', `${name} v${version}${IS_DEV ? ' (development build)' : ''}`);
+
+    const res = await fetch(url, {
       method: 'GET',
-      timeout: 60_000,
-      headers: {
-        'User-Agent': `${name} v${version}${
-          IS_DEV ? ' (development build)' : ''
-        }`,
-      },
+      headers,
     });
 
-    if (res.statusCode !== 200) {
+    if (res.status !== 200) {
       console.error('failed to fetch API results', {
         url,
-        statusCode: res.statusCode,
-        body: res.body.toString(),
+        statusCode: res.status,
+        body: await res.text()
       });
 
       return null;
     }
 
-    const json = JSON.parse(res.body.toString());
+    const json = await res.json() as T;
 
     return json;
   }
