@@ -27,7 +27,14 @@ const oldApiProviders: Provider[] = [
 ];
 
 export class ConsumetApi {
-  private readonly url = 'https://api.consumet.org';
+  private readonly url;
+
+  constructor(url: string) {
+    // Not all APIs have HTTPS support, so we musts explicitly choose HTTP.
+    // his is fine because the data we're sending 1) isn't extremely sensitive and 2) can't be intercepted by end users.
+    const sanitizedUrl = url.split('/').pop();
+    this.url = `http://${sanitizedUrl}`;
+  }
 
   private async send<T>(
     type: ContentType,

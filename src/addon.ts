@@ -16,8 +16,6 @@ import {
 } from './consumet_api';
 import { manifest } from './manifest';
 
-const consumetApi = new ConsumetApi();
-
 export function getManifest() {
   return manifest;
 }
@@ -25,14 +23,17 @@ export function getManifest() {
 export async function catalogHandler({
   id,
   extra,
-}: Args): Promise<{ metas: MetaPreview[] } & Cache> {
+  api,
+}: Args & { api: string }): Promise<{ metas: MetaPreview[] } & Cache> {
   if (IS_DEV) {
-    console.log(id, extra);
+    console.log(id, extra, api);
   }
 
   const [, contentType, provider] = id.split('-');
 
   let metas: MetaPreview[] = [];
+
+  const consumetApi = new ConsumetApi(api);
 
   const searchResults = await consumetApi.search(
     contentType as ConsumetContentType,
@@ -53,9 +54,11 @@ export async function catalogHandler({
 export async function metaHandler({
   id,
   type,
+  api,
 }: {
   type: ContentType;
   id: string;
+  api: string;
 }): Promise<{ meta: MetaDetail } & Cache> {
   if (IS_DEV) {
     console.log(id, type);
@@ -64,6 +67,8 @@ export async function metaHandler({
   const [, contentType, provider, consumetId] = id.split(':');
 
   let meta: MetaDetail = null as unknown as MetaDetail;
+
+  const consumetApi = new ConsumetApi(api);
 
   const info = await consumetApi.getInfo(
     contentType as ConsumetContentType,
@@ -110,9 +115,11 @@ export async function metaHandler({
 export async function streamHandler({
   id,
   type,
+  api,
 }: {
   type: ContentType;
   id: string;
+  api: string;
 }): Promise<{ streams: Stream[] } & Cache> {
   if (IS_DEV) {
     console.log(id, type);
@@ -121,6 +128,8 @@ export async function streamHandler({
   const [, contentType, provider, episodeId] = id.split(':');
 
   let streams: Stream[] = [];
+
+  const consumetApi = new ConsumetApi(api);
 
   const source = await consumetApi.getEpisodeSources(
     contentType as ConsumetContentType,

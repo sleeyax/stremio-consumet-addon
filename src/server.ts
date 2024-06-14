@@ -40,6 +40,7 @@ addon.get('/:api/catalog/:type/:id/:extra.json', async function (req, res) {
         genre: string;
         skip: number;
       },
+      api: req.params.api,
     })
   );
 });
@@ -49,6 +50,7 @@ addon.get('/:api/meta/:type/:id.json', async function (req, res) {
     await metaHandler({
       id: req.params.id,
       type: req.params.type as ContentType,
+      api: req.params.api,
     })
   );
 });
@@ -58,6 +60,7 @@ addon.get('/:api/stream/:type/:id.json', async function (req, res) {
     await streamHandler({
       id: req.params.id,
       type: req.params.type as ContentType,
+      api: req.params.api,
     })
   );
 });
