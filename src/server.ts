@@ -20,6 +20,10 @@ addon.get('/', function (_, res) {
   res.redirect('/configure/');
 });
 
+addon.get('/:api/configure', function (_, res) {
+  res.redirect('/configure/'); // TODO: redirect to configure page with current API field set
+});
+
 addon.get('/configure/test/:api', async function (req, res) {
   const start = performance.now();
   const isReachable = await testApi(req.params.api);
