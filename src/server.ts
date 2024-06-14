@@ -7,9 +7,24 @@ import {
   metaHandler,
   streamHandler,
 } from './addon';
+import { testApiDomain as testApi } from './utils';
 
 const addon = express();
 const port = process.env.PORT ?? 1337;
+
+addon.use(express.static('public'));
+
+addon.get('/', function (_, res) {
+  res.redirect('/configure/');
+});
+
+addon.get('/configure/test/:api', async function (req, res) {
+  const start = performance.now();
+  const isReachable = await testApi(req.params.api);
+  const end = performance.now();
+  const time = end - start;
+  res.send({ ok: isReachable, time: Math.round(time) });
+});
 
 addon.get('/:api/manifest.json', function (_, res) {
   res.send(getManifest());

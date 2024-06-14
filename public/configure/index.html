@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Stremio Consumet Addon</title>
+    <link rel="stylesheet" href="./index.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+      integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <script src="./index.js"></script>
+
+    <div id="addon">
+      <div class="logo">
+        <img
+          src="https://camo.githubusercontent.com/a36d9dc03ee8a00e06617a6b6924e54c863f327e1ab4e4d4379348f7f480b281/68747470733a2f2f636f6e73756d65742e6f72672f696d616765732f636f6e73756d65746c6f676f2e706e67"
+        />
+      </div>
+
+      <h1 class="name">Stremio Consumet Addon</h1>
+      <h2 class="version">v2.0.0</h2>
+      <h2 class="description">
+        Provides content from the
+        <a href="https://github.com/consumet/" target="_blank">Consumet</a> API.
+      </h2>
+
+      <div class="separator"></div>
+
+      <h3 class="gives">This addon has more :</h3>
+      <ul>
+        <li>Movies</li>
+        <li>Series</li>
+        <li>Anime</li>
+      </ul>
+
+      <div class="separator"></div>
+
+      <form class="pure-form" id="mainForm">
+        <div class="form-element">
+          <div class="label-to-top">API domain:</div>
+          <select
+            id="domain"
+            name="domain"
+            class="full-width"
+            onchange="changeDomain(event)"
+          >
+            <option value="consumet.api-cdn-premium.click" selected>
+              consumet.api-cdn-premium.click
+            </option>
+            <option value="vmi1595302.contaboserver.net:3000">
+              vmi1595302.contaboserver.net:3000
+            </option>
+            <option value="vmi1747693.contaboserver.net:3000">
+              vmi1747693.contaboserver.net:3000
+            </option>
+            <option value="www.blix.space:3000">www.blix.space:3000</option>
+            <option value="isv1.lkpanel.pro:3000">isv1.lkpanel.pro:3000</option>
+            <option value="itms.bp-it.net:3000">itms.bp-it.net:3000</option>
+            <option value="yap589.com:3000">yap589.com:3000</option>
+            <option value="shahgrp.com:3000">shahgrp.com:3000</option>
+            <option value="zicialliscom.com:3000">zicialliscom.com:3000</option>
+            <option value="bot.mepozz.net:3000">bot.mepozz.net:3000</option>
+            <option value="firehawkproducts.com:3000">
+              firehawkproducts.com:3000
+            </option>
+            <option value="gengasw.com:3000">gengasw.com:3000</option>
+            <option value="yttx1388.com:3000">yttx1388.com:3000</option>
+            <option value="baics.pro:3000">baics.pro:3000</option>
+            <option value="baidn.pro:3000">baidn.pro:3000</option>
+            <option value="baicp.pro:3000">baicp.pro:3000</option>
+            <option value="38.238.76.100:3000">38.238.76.100:3000</option>
+            <option value="38.238.60.157:3000">38.238.60.157:3000</option>
+            <option value="5.161.123.199:3000">5.161.123.199:3000</option>
+          </select>
+        </div>
+
+        <div class="form-element">
+          <div class="label-to-top">Or enter custom API domain:</div>
+          <input
+            type="text"
+            id="custom"
+            name="custom"
+            class="full-width"
+            placeholder="example.com"
+            onchange="changeCustomDomain(event)"
+          />
+        </div>
+      </form>
+
+      <p>API status: <span id="status" class="unknown">unknown</span></p>
+
+      <div class="separator"></div>
+
+      <a
+        id="installLink"
+        class="install-link"
+        href="#"
+        onclick="installAddon()"
+      >
+        <button name="Install">INSTALL</button>
+      </a>
+
+      <div class="contact">
+        <a
+          href="https://github.com/sleeyax/stremio-consumet-addon/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc"
+          target="_blank"
+          >GitHub</a
+        >
+        -
+        <a
+          href="https://github.com/Stremio/stremio-art/blob/main/originals/Ahmad-Bakur-3.jpg"
+          target="_blank"
+          >Art</a
+        >
+      </div>
+    </div>
+  </body>
+</html>

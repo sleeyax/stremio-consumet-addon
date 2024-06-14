@@ -42,4 +42,8 @@ export const manifest: Manifest = {
   resources: ['catalog', 'meta', 'stream'],
   types: ['series', 'movie'],
   idPrefixes: [ADDON_ID],
+  behaviorHints: {
+    configurable: true,
+    configurationRequired: true,
+  },
 };
