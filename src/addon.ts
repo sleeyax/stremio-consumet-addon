@@ -1,29 +1,45 @@
-import {
+import type {
+  Args,
+  Cache,
+  ContentType,
   MetaDetail,
   MetaPreview,
   Stream,
   Subtitle,
-  addonBuilder,
 } from 'stremio-addon-sdk';
-import manifest from './manifest';
 import { ADDON_ID, IS_DEV } from './constants';
 import { formatFuzzyDate } from './utils';
-import ConsumetApi, { AnimeProvider, ContentType } from './consumet_api';
+import {
+  ConsumetApi,
+  AnimeProvider,
+  ContentType as ConsumetContentType,
+} from './consumet_api';
+import { manifest } from './manifest';
 
-const builder = new addonBuilder(manifest);
-const consumetApi = new ConsumetApi();
+export function getManifest(options: { configurationRequired: boolean }) {
+  return {
+    ...manifest,
+    behaviorHints: { ...manifest.behaviorHints, ...options },
+  };
+}
 
-builder.defineCatalogHandler(async ({ id, extra }) => {
+export async function catalogHandler({
+  id,
+  extra,
+  api,
+}: Args & { api: string }): Promise<{ metas: MetaPreview[] } & Cache> {
   if (IS_DEV) {
-    console.log(id, extra);
+    console.log(id, extra, api);
   }
 
   const [, contentType, provider] = id.split('-');
 
   let metas: MetaPreview[] = [];
 
+  const consumetApi = new ConsumetApi(api);
+
   const searchResults = await consumetApi.search(
-    contentType as ContentType,
+    contentType as ConsumetContentType,
     provider as AnimeProvider,
     extra.search
   );
@@ -36,9 +52,17 @@ builder.defineCatalogHandler(async ({ id, extra }) => {
   }));
 
   return { metas };
-});
+}
 
-builder.defineMetaHandler(async ({ id, type }) => {
+export async function metaHandler({
+  id,
+  type,
+  api,
+}: {
+  type: ContentType;
+  id: string;
+  api: string;
+}): Promise<{ meta: MetaDetail } & Cache> {
   if (IS_DEV) {
     console.log(id, type);
   }
@@ -47,8 +71,10 @@ builder.defineMetaHandler(async ({ id, type }) => {
 
   let meta: MetaDetail = null as unknown as MetaDetail;
 
+  const consumetApi = new ConsumetApi(api);
+
   const info = await consumetApi.getInfo(
-    contentType as ContentType,
+    contentType as ConsumetContentType,
     provider as AnimeProvider,
     consumetId
   );
@@ -69,9 +95,7 @@ builder.defineMetaHandler(async ({ id, type }) => {
         : undefined,
       releaseInfo:
         info.startDate || info.endDate
-          ? `${info.startDate ? formatFuzzyDate(info.startDate) : ''} - ${
-              info.endDate ? formatFuzzyDate(info.endDate) : ''
-            }`
+          ? `${info.startDate ? formatFuzzyDate(info.startDate) : ''} - ${info.endDate ? formatFuzzyDate(info.endDate) : ''}`
           : undefined,
       website: info.url,
       runtime: info.status,
@@ -89,9 +113,17 @@ builder.defineMetaHandler(async ({ id, type }) => {
   }
 
   return { meta };
-});
+}
 
-builder.defineStreamHandler(async ({ id, type }) => {
+export async function streamHandler({
+  id,
+  type,
+  api,
+}: {
+  type: ContentType;
+  id: string;
+  api: string;
+}): Promise<{ streams: Stream[] } & Cache> {
   if (IS_DEV) {
     console.log(id, type);
   }
@@ -100,12 +132,13 @@ builder.defineStreamHandler(async ({ id, type }) => {
 
   let streams: Stream[] = [];
 
+  const consumetApi = new ConsumetApi(api);
+
   const source = await consumetApi.getEpisodeSources(
-    contentType as ContentType,
+    contentType as ConsumetContentType,
     provider as AnimeProvider,
     episodeId
   );
-  console.log(source)
   streams = (source?.sources ?? []).map((s) => ({
     name: s.quality ?? 'Unknown',
     title: s.quality ?? 'Unknown',
@@ -117,6 +150,4 @@ builder.defineStreamHandler(async ({ id, type }) => {
   }));
 
   return { streams };
-});
-
-export default builder.getInterface();
+}

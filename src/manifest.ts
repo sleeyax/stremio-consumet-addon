@@ -1,9 +1,9 @@
-import { ManifestCatalog, Manifest as manifest } from 'stremio-addon-sdk';
+import type { ManifestCatalog, Manifest } from 'stremio-addon-sdk';
 import { ADDON_ID } from './constants';
 import { AnimeProvider, MovieProvider } from './consumet_api';
 const { version, description } = require('../package.json');
 
-const manifest: manifest = {
+export const manifest: Manifest = {
   id: `com.sleeyax.${ADDON_ID}`,
   name: 'Consumet',
   version,
@@ -22,7 +22,7 @@ const manifest: manifest = {
               isRequired: true,
             },
           ],
-        } as ManifestCatalog)
+        }) as ManifestCatalog
     ),
     ...Object.values(MovieProvider).map(
       (provider) =>
@@ -36,12 +36,14 @@ const manifest: manifest = {
               isRequired: true,
             },
           ],
-        } as ManifestCatalog)
+        }) as ManifestCatalog
     ),
   ],
   resources: ['catalog', 'meta', 'stream'],
   types: ['series', 'movie'],
   idPrefixes: [ADDON_ID],
+  behaviorHints: {
+    configurable: true,
+    configurationRequired: true,
+  },
 };
-
-export default manifest;

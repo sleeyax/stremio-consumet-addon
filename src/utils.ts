@@ -11,3 +11,24 @@ export function formatFuzzyDate({
 
   return `${year}-${month}-${day}`;
 }
+
+/**
+ * Check if we can reach the given Consumet API.
+ * @param domain The domain to check.
+ * @returns Whether the API is reachable.
+ */
+export async function testApiDomain(domain: string) {
+  try {
+    const res = await fetch(`http://${domain}`);
+
+    if (res.status !== 200) {
+      return false;
+    }
+
+    const text = await res.text();
+
+    return text.includes('consumet');
+  } catch (_) {
+    return false;
+  }
+}
