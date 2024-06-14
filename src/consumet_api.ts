@@ -26,7 +26,7 @@ const oldApiProviders: Provider[] = [
   AnimeProvider.Zoro,
 ];
 
-export default class ConsumetApi {
+export class ConsumetApi {
   private readonly url = 'https://api.consumet.org';
 
   private async send<T>(
