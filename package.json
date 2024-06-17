@@ -1,6 +1,6 @@
 {
   "name": "stremio-consumet-addon",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Provides anime and asian movies from the Consumet API",
   "main": "src/server.js",
   "scripts": {
